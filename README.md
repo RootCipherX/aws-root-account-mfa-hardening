@@ -82,14 +82,14 @@ To eliminate single-factor authentication risk on the root AWS account by provis
                       v
  [ AWS Console Login ]
           |
-          +---> (1) Evaluates Primary Factor: Email + Password [Valid][cite: 115, 116]
+          +---> (1) Evaluates Primary Factor: Email + Password [Valid]
           |
-          +---> (2) Triggers MFA Challenge Screen[cite: 117]
+          +---> (2) Triggers MFA Challenge Screen
           |           ^
           |           |
-          |         (3) User Supplies 6-Digit Live Code from Authenticator[cite: 117]
+          |         (3) User Supplies 6-Digit Live Code from Authenticator
           |           |
-          +---> (4) Cryptographic Verification Successful -> Full Access Granted[cite: 108]
+          +---> (4) Cryptographic Verification Successful -> Full Access Granted
 ```
 
 ---
@@ -98,24 +98,24 @@ To eliminate single-factor authentication risk on the root AWS account by provis
 
 ### Phase 1: Initial Root Access & Security Posture Assessment
 
-Initiated the administrative session by navigating to the AWS Management Console Sign-In portal (`signin.aws.amazon.com`)[cite: 89]. Selected the **Root user** authentication option and supplied the account owner root email address[cite: 89].
+Initiated the administrative session by navigating to the AWS Management Console Sign-In portal (`signin.aws.amazon.com`)[cite: 89]. Selected the **Root user** authentication option and supplied the account owner root email address.
 <br>
 
-![AWS Root Sign-In](images/01-aws-login-as-root-user.jpg)
+![AWS Root Sign-In](images/01-aws-login-as-root-user.png)
 
-Supplied the root master password to satisfy the primary authentication factor[cite: 90].
+Supplied the root master password to satisfy the primary authentication factor.
 <br>
 
-![Enter Root Password](images/02-insert-root-password.jpg)
+![Enter Root Password](images/02-insert-root-password.png)
 
-Navigated to the global service locator and searched for **IAM** (Identity and Access Management) to audit security configurations[cite: 91].
+Navigated to the global service locator and searched for **IAM** (Identity and Access Management) to audit security configurations.
 <br>
 
 ![Search IAM Console](images/03-search-for-iam.png)
 
-Inspected the **IAM Dashboard** overview[cite: 92]. The console reported an active security posture alert:
-* **Recommendation:** *"Add MFA for root user - Enable multi-factor authentication (MFA) for the root user to improve security for this account."*[cite: 92]
-* Selected **Add MFA** to launch the device association wizard[cite: 92].
+Inspected the **IAM Dashboard** overview. The console reported an active security posture alert:
+* **Recommendation:** *"Add MFA for root user - Enable multi-factor authentication (MFA) for the root user to improve security for this account."*
+* Selected **Add MFA** to launch the device association wizard.
 <br>
 
 ![IAM Security Recommendations](images/04-check-mfa-click-add-mfa.png)
@@ -124,20 +124,20 @@ Inspected the **IAM Dashboard** overview[cite: 92]. The console reported an acti
 
 ### Phase 2: MFA Hardware/Virtual Modality Selection
 
-Initiated Step 1 (*Select MFA device*) within the enrollment console[cite: 93]. Configured the unique identifier string for the authenticator entity within the **MFA device name** parameter[cite: 93].
+Initiated Step 1 (*Select MFA device*) within the enrollment console. Configured the unique identifier string for the authenticator entity within the **MFA device name** parameter.
 <br>
 
 ![Assign Device Name](images/05-add-device-name.png)
 
 Evaluated the supported secondary factor device modalities:
-* **Passkey or security key:** FIDO2 WebAuthn hardware tokens (e.g., YubiKey) providing physical non-repudiation and phishing resistance[cite: 94].
-* **Authenticator app:** Software-based virtual tokens calculating RFC 6238 time-synchronized hash values[cite: 94, 95].
-* **Hardware TOTP token:** Standalone physical devices displaying time-based codes via built-in displays[cite: 95].
+* **Passkey or security key:** FIDO2 WebAuthn hardware tokens (e.g., YubiKey) providing physical non-repudiation and phishing resistance.
+* **Authenticator app:** Software-based virtual tokens calculating RFC 6238 time-synchronized hash values.
+* **Hardware TOTP token:** Standalone physical devices displaying time-based codes via built-in displays.
 <br>
 
 ![MFA Modality Evaluation](images/06-select-device-option.png)
 
-Selected the **Authenticator app** modality to establish mobile device-bound software verification[cite: 96].
+Selected the **Authenticator app** modality to establish mobile device-bound software verification.
 <br>
 
 ![Select Authenticator App](images/08-select-authenticator-app.png)
@@ -146,32 +146,32 @@ Selected the **Authenticator app** modality to establish mobile device-bound sof
 
 ### Phase 3: Virtual TOTP Token Staging & Cryptographic Synchronization
 
-Progressed to Step 2 (*Set up device*)[cite: 97]. AWS generated a dynamic, secret HMAC seed key encoded within an interactive QR code block[cite: 97]. 
+Progressed to Step 2 (*Set up device*). AWS generated a dynamic, secret HMAC seed key encoded within an interactive QR code block. 
 
-The wizard requires entering two consecutive 6-digit verification codes generated 30 seconds apart to prevent clock-drift failures and confirm hash synchronization[cite: 97, 111].
+The wizard requires entering two consecutive 6-digit verification codes generated 30 seconds apart to prevent clock-drift failures and confirm hash synchronization.
 <br>
 
 ![Setup Device Wizard](images/09-step-1-install-any-authenticator-app.png)
 
-Switched to an external mobile device, accessed the Google Play Store, and searched for the official **Google Authenticator** application[cite: 88].
+Switched to an external mobile device, accessed the Google Play Store, and searched for the official **Google Authenticator** application.
 <br>
 
-![Search Authenticator Mobile](images/10-open-playstore-search-authenticator-app-on-mobile.jpeg)
+![Search Authenticator Mobile](images/10-open-playstore-search-authenticator-app-on-mobile.png)
 
-Installed and opened the application on the isolated device[cite: 109].
+Installed and opened the application on the isolated device.
 <br>
 
-![Open Google Authenticator](images/11-I-installed-google-authenticator.jpeg)
+![Open Google Authenticator](images/11-I-installed-google-authenticator.png)
 
-Selected the **Add Account (+)** button within Google Authenticator and selected **Scan a QR code** to capture the provisioning seed displayed on the AWS console[cite: 97, 110].
+Selected the **Add Account (+)** button within Google Authenticator and selected **Scan a QR code** to capture the provisioning seed displayed on the AWS console.
 <br>
 
 ![Scan Seed QR Code](images/12-click-add-scan-qr-on-aws-page.png)
 
-The application immediately instantiated a dynamic 30-second token generation loop[cite: 110]. To satisfy the registration challenge, captured two sequential tokens:
-* Captured **MFA Code 1** from the active window[cite: 111].
-* Waited 30 seconds for the counter interval to rotate and captured **MFA Code 2**[cite: 111].
-* Submitted both values and clicked **Add MFA**[cite: 111].
+The application immediately instantiated a dynamic 30-second token generation loop. To satisfy the registration challenge, captured two sequential tokens:
+* Captured **MFA Code 1** from the active window.
+* Waited 30 seconds for the counter interval to rotate and captured **MFA Code 2**.
+* Submitted both values and clicked **Add MFA**.
 <br>
 
 ![Input Two Consecutive TOTP Codes](images/13-insert-2-different-otp-shown-on-app-click-add-mfa.png)
@@ -180,8 +180,8 @@ The application immediately instantiated a dynamic 30-second token generation lo
 
 ### Phase 4: Device Assignment Validation & IAM Health Audit
 
-Upon submission, the console returned a positive confirmation banner[cite: 112]:
-> *"MFA device assigned. You can register up to 8 MFA devices of any combination of the currently supported MFA types with your AWS account root and IAM user."*[cite: 112]
+Upon submission, the console returned a positive confirmation banner:
+> *"MFA device assigned. You can register up to 8 MFA devices of any combination of the currently supported MFA types with your AWS account root and IAM user."*
 <br>
 
 ![MFA Assigned Banner](images/14-green-flash-message-shows.png)
@@ -194,10 +194,10 @@ Audited the updated **Multi-factor authentication (MFA)** table within the root 
 
 ![Virtual Token Registered](images/15-multi-factor-authentication-shows-1-key.png)
 
-Returned to the master **IAM Dashboard** to verify overall tenant health[cite: 114]:
-* **Security recommendations:** Scaled from `1` alert down to `0`[cite: 92, 114].
-* **Root user has MFA:** Displayed a passing green validation indicator[cite: 114].
-* **Root access keys:** Confirmed `0` active programmatic access keys, validating administrative least-privilege best practices[cite: 114].
+Returned to the master **IAM Dashboard** to verify overall tenant health:
+* **Security recommendations:** Scaled from `1` alert down to `0`.
+* **Root user has MFA:** Displayed a passing green validation indicator.
+* **Root access keys:** Confirmed `0` active programmatic access keys, validating administrative least-privilege best practices.
 <br>
 
 ![IAM Posture Green Checkmark](images/16-iam-dashboard-confirms-mfa-active.png)
@@ -216,13 +216,13 @@ Supplied the root master password.
 
 ![Re-enter Master Password](images/18-reinsert-root-password.png)
 
-Upon validating the primary credential factor, AWS halted direct console authorization and redirected to the mandatory secondary authentication challenge[cite: 117]:
-> *"Additional verification required. Your account is protected with multi-factor authentication (MFA). To finish signing in, enter the code from your MFA device below."*[cite: 117]
+Upon validating the primary credential factor, AWS halted direct console authorization and redirected to the mandatory secondary authentication challenge:
+> *"Additional verification required. Your account is protected with multi-factor authentication (MFA). To finish signing in, enter the code from your MFA device below."*
 <br>
 
 ![Secondary MFA Challenge Intercept](images/19-it-will-ask-for-mfa-code.png)
 
-Retrieved the active 6-digit TOTP code from the mobile Google Authenticator app, entered the numerical string into the **MFA code** prompt, and selected **Sign in**[cite: 117]. 
+Retrieved the active 6-digit TOTP code from the mobile Google Authenticator app, entered the numerical string into the **MFA code** prompt, and selected **Sign in**. 
 
 The console accepted the cryptographic proof and granted access to **Console Home**, confirming end-to-end enforcement.
 <br>
