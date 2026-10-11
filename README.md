@@ -98,7 +98,7 @@ To eliminate single-factor authentication risk on the root AWS account by provis
 
 ### Phase 1: Initial Root Access & Security Posture Assessment
 
-Initiated the administrative session by navigating to the AWS Management Console Sign-In portal (`signin.aws.amazon.com`)[cite: 89]. Selected the **Root user** authentication option and supplied the account owner root email address.
+Initiated the administrative session by navigating to the AWS Management Console Sign-In portal (`signin.aws.amazon.com`). Selected the **Root user** authentication option and supplied the account owner root email address.
 <br>
 
 ![AWS Root Sign-In](images/01-aws-login-as-root-user.png)
