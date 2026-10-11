@@ -238,7 +238,7 @@ Enforcing multi-factor authentication on the root user is one of the highest-pri
 * **CIS AWS Foundations Benchmark v3.0 (Control 1.5):** Mandates that multi-factor authentication be enabled on the root account. Failing this check represents an immediate high-severity compliance failure across SOC 2, ISO 27001, and FedRAMP audits.
 * **Elimination of Password-Only Exposure:** Compromised master credentials obtained via infostealer malware, phishing, or credential stuffing cannot authorize console access without physical possession of the mobile token engine.
 * **Separation of Factor Channels:** Using a separate mobile device provides true out-of-band factor isolation, ensuring an attacker compromising the administrator's desktop browser cannot intercept the secondary verification code.
-* **Zero Programmatic Keys for Root:** Complementing MFA enforcement by maintaining zero active root access keys ensures that long-lived API secrets cannot bypass the console MFA gate[cite: 113, 114]. Daily tasks should instead be delegated to scoped IAM roles and IAM Identity Center (SSO) users.
+* **Zero Programmatic Keys for Root:** Complementing MFA enforcement by maintaining zero active root access keys ensures that long-lived API secrets cannot bypass the console MFA gate. Daily tasks should instead be delegated to scoped IAM roles and IAM Identity Center (SSO) users.
 
 ---
 
