@@ -87,7 +87,7 @@ To eliminate single-factor authentication risk on the root AWS account by provis
           +---> (2) Triggers MFA Challenge Screen
           |           ^
           |           |
-          |         (3) User Supplies 6-Digit Live Code from Authenticator
+          |     (3) User Supplies 6-Digit Live Code from Authenticator
           |           |
           +---> (4) Cryptographic Verification Successful -> Full Access Granted
 ```
